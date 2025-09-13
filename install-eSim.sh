@@ -23,7 +23,7 @@
 # Function to detect Ubuntu version and full version string
 get_ubuntu_version() {
     VERSION_ID=$(grep "^VERSION_ID=" /etc/os-release | cut -d '=' -f 2 | tr -d '"')
-    FULL_VERSION=$(lsb_release -d | grep -oP '\d+\.\d+\.\d+')
+    FULL_VERSION=$(lsb_release -r | awk '{print $2}')
   
     echo "Detected Ubuntu Version: $FULL_VERSION"
 }
@@ -46,6 +46,9 @@ run_version_script() {
         ;;
     "24.04")
         SCRIPT="$SCRIPT_DIR/install-eSim-24.04.sh"
+        ;;
+    "25.04")
+        SCRIPT="$SCRIPT_DIR/install-eSim-22.04.sh"
         ;;
     *)
         echo "Unsupported Ubuntu version: $VERSION_ID ($FULL_VERSION)"
